@@ -1,4 +1,4 @@
-package com.zaidzakir.newsapp
+package com.zaidzakir.newsapp.models
 
 data class Source(
     val id: Any,

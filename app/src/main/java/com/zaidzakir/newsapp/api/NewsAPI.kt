@@ -1,6 +1,6 @@
 package com.zaidzakir.newsapp.api
 
-import com.zaidzakir.newsapp.NewsResponse
+import com.zaidzakir.newsapp.models.NewsResponse
 import com.zaidzakir.newsapp.utils.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
