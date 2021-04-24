@@ -15,7 +15,7 @@ class SearchNewsFragment:Fragment(R.layout.fragment_search_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        newsViewModel = (activity as NewsActivity) as NewsViewModel
+        newsViewModel = (activity as NewsActivity).viewModel
     }
 
 }
