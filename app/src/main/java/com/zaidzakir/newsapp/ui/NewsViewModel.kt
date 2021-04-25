@@ -20,9 +20,11 @@ class NewsViewModel(
     //used for our fragment to subscribe as observers and observe any changes, since in mvvm viewmodel has no relationship with ui
     val breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var breakingNewsPage = 1
+    var breakingNewsResponse:NewsResponse? = null
 
     val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
     var searchNewsPage = 1
+    var searchNewsResponse:NewsResponse? = null
 
     init {
         getBreakingNews("us")
@@ -43,7 +45,18 @@ class NewsViewModel(
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                //increase page number by 1 everytime we recieve response
+                breakingNewsPage++
+                //if its first response we set to result response
+                if (breakingNewsResponse == null){
+                    breakingNewsResponse = resultResponse
+                }else{
+                    //else add on top on old response
+                    val oldArticles = breakingNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(breakingNewsResponse?: resultResponse)
             }
         }
         return Resource.Error(response.message())
@@ -52,7 +65,18 @@ class NewsViewModel(
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
+                //increase page number by 1 everytime we recieve response
+                searchNewsPage++
+                //if its first response we set to result response
+                if (searchNewsResponse == null){
+                    searchNewsResponse = resultResponse
+                }else{
+                    //else add on top on old response
+                    val oldArticles = searchNewsResponse?.articles
+                    val newArticles = resultResponse.articles
+                    oldArticles?.addAll(newArticles)
+                }
+                return Resource.Success(searchNewsResponse?: resultResponse)
             }
         }
         return Resource.Error(response.message())
