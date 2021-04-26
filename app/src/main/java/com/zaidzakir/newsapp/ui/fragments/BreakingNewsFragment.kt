@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.zaidzakir.newsapp.R
 import com.zaidzakir.newsapp.adapters.NewsAdapter
 import com.zaidzakir.newsapp.ui.NewsActivity
@@ -15,6 +16,7 @@ import com.zaidzakir.newsapp.ui.NewsViewModel
 import com.zaidzakir.newsapp.utils.Constants.Companion.QUERY_PAGE_SIZE
 import com.zaidzakir.newsapp.utils.Resource
 import kotlinx.android.synthetic.main.fragment_breaking_news.*
+import java.lang.Error
 
 /**
  *Created by Zaid Zakir
@@ -52,6 +54,7 @@ class BreakingNewsFragment:Fragment(R.layout.fragment_breaking_news) {
                 }
                 is Resource.Error ->{
                     hideProgressBar()
+                    Snackbar.make(view,"An Error has occured", Snackbar.LENGTH_LONG).show()
                 }
                 is Resource.Loading->{
                     showProgressBar()
